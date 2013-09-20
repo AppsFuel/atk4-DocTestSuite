@@ -18,7 +18,6 @@ info=${bldwht}*${txtrst}        # Feedback
 pass=${bldblu}*${txtrst}
 warn=${bldred}*${txtrst}
 
-export DOCTEST_SUITE_FRAMEWORK
 export DOCTEST_COVERAGE=
 
 
