@@ -1,6 +1,5 @@
 <?php
 
-
 $_SERVER['DOCTEST_SUITE_FRAMEWORK']=realpath($_SERVER['DOCTEST_SUITE_FRAMEWORK']);
 
 require_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . '/site-config.php';
@@ -9,7 +8,7 @@ include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/doctestEnv/coverag
 
 try
 {
-    if (isset($_SERVER['DOCTEST_COVERAGE'])) {
+    if (!empty($_SERVER['DOCTEST_COVERAGE'])) {
         if (!extension_loaded('xdebug')) {
             @dl('xdebug.so');
         }
