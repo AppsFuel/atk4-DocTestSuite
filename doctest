@@ -26,8 +26,7 @@ ADDPARAMS=""
 FILES=""
 #if [ "$1" != "" ]; then
 	if test -d "$1"; then
-		ARG=$(readlink -f "$1" 2>/dev/null)
-		FILES=$(find -H $ARG -type f -name "*.php" -exec grep -H -l -m 1 '<code>' {} \; )
+		FILES=$(find -H $1 -type f -name "*.php" -exec grep -H -l -m 1 '<code>' {} \; )
 	else	
 		dep=""
 		cov=""
