@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body onload="delay(1)">
+<script>
+
+function  getcommand()
+{
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","slider_client.php?action=get_command&id=ca39f0ae825c205c94d7eaa48583a88d", false);
+        xmlhttp.send();
+        var obj = JSON.parse(xmlhttp.responseText);
+	if (obj.command != "")
+	{
+        	var div = document.getElementById("command")
+		div.innerHTML=obj.command;
+	}
+}
+
+function delay(num)
+        {
+            getcommand();
+            var number = num + 1;
+            setTimeout("delay("+number+")",500);
+        }
+
+</script>
+
+<h1>Received command: </h1> <div id="command">....</div>
+</body>
+</html>
