@@ -2,7 +2,7 @@
 
 #@author: marco biondi
 #set -e
-DOCTEST_SUITE_FRAMEWORK=$(dirname $(readlink -f $0))
+DOCTEST_SUITE_FRAMEWORK=${0%/*}
 
 # Text color variables
 txtunderline=$(tput -Txterm-color sgr 0 1)          # Underline
@@ -18,7 +18,9 @@ info=${bldwht}*${txtrst}        # Feedback
 pass=${bldblu}*${txtrst}
 warn=${bldred}*${txtrst}
 
+export DOCTEST_SUITE_FRAMEWORK
 export DOCTEST_COVERAGE=
+
 
 ADDPARAMS=""
 FILES=""

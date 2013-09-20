@@ -1,4 +1,4 @@
-<?
+<?php
 
 function update_coverage_db($coverage_data, $doctest_file="", $coverage_db_file) {
         $db = new SQLite3($coverage_db_file);

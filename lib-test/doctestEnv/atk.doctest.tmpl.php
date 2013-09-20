@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . '/site-config-default.php';
-if (file_exists(__DIR__ . '/site-config.php')) {
-    require_once __DIR__ . '/site-config.php';
-}
 
-include_once __DIR__ . "/lib-test/doctestEnv/coverage.php";
+$_SERVER['DOCTEST_SUITE_FRAMEWORK']=realpath($_SERVER['DOCTEST_SUITE_FRAMEWORK']);
+
+require_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . '/site-config.php';
+
+include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/doctestEnv/coverage.php";
 
 try
 {
@@ -21,8 +21,8 @@ try
     chdir($_SERVER['TARGET_BASE_PATH']);
 
 	include_once $_SERVER['TARGET_BASE_PATH'] . "/atk4/loader.php";
-    include_once __DIR__ . "/lib-test/lib/DocTestEnvironment.php";
-    include_once __DIR__ . "/lib-test/lib/TestCase.php";
+    include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/DocTestEnvironment.php";
+    include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/TestCase.php";
 
 	class _doctest extends DocTestEnvironment {
 		function run() {
