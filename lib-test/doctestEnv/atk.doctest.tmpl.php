@@ -1,7 +1,6 @@
 <?php
 
 require_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . '/site-config.php';
-include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/doctestEnv/coverage.php";
 
 try
 {

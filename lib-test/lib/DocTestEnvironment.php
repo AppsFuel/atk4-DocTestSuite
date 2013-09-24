@@ -20,10 +20,9 @@ class DocTestEnvironment extends ApiCLI {
             $this->getConfig('dummy','dummy');
             // user-config for your site
             include $_SERVER['ATK4_CONFIG_BASE'].$this->environment."_doctest.config.php";
+            // test-config
+            $this->setConfig($config);
         }
-        // test-config
-        include __DIR__ . '/config.php';
-        $this->setConfig($config);
 
 		$this->getLogger();
 		$db=$this->dbConnect();
