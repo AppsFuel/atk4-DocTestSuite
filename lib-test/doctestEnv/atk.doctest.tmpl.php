@@ -11,11 +11,11 @@ try
         @xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
     }
 
-    $_SERVER['SCRIPT_FILENAME']= $_SERVER['TARGET_BASE_PATH']."/index.php";
+    $_SERVER['SCRIPT_FILENAME']= TARGET_BASE_PATH . "/index.php";
 
-    chdir($_SERVER['TARGET_BASE_PATH']);
+    chdir(TARGET_BASE_PATH);
 
-	include_once $_SERVER['TARGET_BASE_PATH'] . "/atk4/loader.php";
+	include_once TARGET_BASE_PATH . "/atk4/loader.php";
     include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/DocTestEnvironment.php";
     include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/TestCase.php";
 
@@ -38,9 +38,10 @@ try
 	$api->run();
 
 	if ($_SERVER['DOCTEST_COVERAGE']=="on") {
+        include $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/doctestEnv/coverage.php";
 		$xdebug_output = @xdebug_get_code_coverage();
 		@xdebug_stop_code_coverage();
-		update_coverage_db($xdebug_output, $_SERVER['DOCTEST_SCRIPT'], $api->getConfig('coverage/db'));
+		update_coverage_db($xdebug_output, $_SERVER['DOCTEST_SCRIPT'], COVERAGE_DB);
 	}
 }
 catch (Exception $ex) {

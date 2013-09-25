@@ -1,6 +1,6 @@
 <?php
 
-function update_coverage_db($coverage_data, $doctest_file="", $coverage_db_file) {
+function update_coverage_db($coverage_data, $doctest_file, $coverage_db_file) {
         $db = new SQLite3($coverage_db_file);
 
         $db->exec('CREATE TABLE IF NOT EXISTS coverage_file (file_id INTEGER, file_name STRING UNIQUE, total_lines INTEGER, update_date DATE DEFAULT CURRENT_DATE, doctest INTEGER DEFAULT 0, PRIMARY KEY (file_id), UNIQUE(file_name))');
