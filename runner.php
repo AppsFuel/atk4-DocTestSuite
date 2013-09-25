@@ -136,7 +136,7 @@ try {
     if ($options['singleTest']) {
         $preparams = ' -t \'' . $options['singleTest'] . '\' ';
     }
-    $preparams .= ' --template-code=' . $wrapperPath;
+    $preparams .= ' --template-code=' . $wrapperPath . ' --php-wrapper=/usr/bin/php' ;
     if ($options['coverage']) {
         putenv('DOCTEST_COVERAGE=on');
     }
