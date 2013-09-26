@@ -77,6 +77,18 @@ function getCoverage() {
     $res = $res->fetchArray(SQLITE3_ASSOC);
     return $res['coverage'];
 }
+function getCoverageFile($file) {
+    if (preg_match('/\/\/\s\[\[([^\]]*)]]/', file_get_contents($file), $matches)) {
+        $testCaseFile = dirname($file) . '/' . str_replace('_', '/', $matches[1]) . '.php';
+    } else {
+        $testCaseFile = $file;
+    }
+    $q = "select ROUND(((ROUND(SUM(B.covered_lines)) / ROUND(SUM(A.total_lines))) * 100),0) as coverage, file_name as filename  from coverage_file A, (select file_id,count(*) as covered_lines from coverage_data where covered=1 or covered=-2  group by file_id) B where A.file_id = B.file_id and A.file_name='$testCaseFile';";
+    $db = getSQLite();
+    $res = $db->query($q);
+    $res = $res->fetchArray(SQLITE3_ASSOC);
+    return $res;
+}
 
 
 function sprintf_array($string, $array) {
@@ -160,10 +172,17 @@ try {
         }
     }
     
-    $coverage = getCoverage();
-    echo "\033[0;34mCode Coverage\n";
+    echo "\033[0;34mCode Coverage\033[0m\n";
     echo "=============\n";
-    echo 'Coverage: ' . ($coverage > 70 ? "\033[1;32m" : "\033[0;31m") . $coverage . "%\n\n";
+    foreach ($files as $file) {
+        $coverage = getCoverageFile($file);
+        if (!empty($coverage['filename'])) {
+            echo $coverage['filename'] . ': ' . ($coverage['coverage'] > 70 ? "\033[1;32m" : "\033[0;31m") . $coverage['coverage'] . "%\033[0m\n";
+        }
+    }
+    echo "=============\n";
+    $coverage = getCoverage();
+    echo 'Total: ' . ($coverage > 70 ? "\033[1;32m" : "\033[0;31m") . $coverage . "%\n\n";
     echo "\033[0m";
 } catch (Exception $e) {
     $parser->displayError($e->getMessage());
