@@ -19,3 +19,12 @@ if (file_exists('/dev/shm/')) {
  */
 $config['coverage']['store'] = $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . '/coverage.db';
 
+/*
+ * You can add this function to setup better the shared folders.
+ */
+function addSharedCustomizedLocations($pathfinder, $base_directory) {
+        $pathfinder->addLocation(
+			'shared-folder',
+			array('php' => 'lib')
+		)->setBasePath($base_directory.'/shared-folder');
+}

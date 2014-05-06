@@ -11,27 +11,34 @@ try
         @xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
     }
 
+    define('TARGET_BASE_PATH', $_SERVER['TARGET_BASE_PATH']);
     $_SERVER['SCRIPT_FILENAME']= TARGET_BASE_PATH . "/index.php";
 
     chdir(TARGET_BASE_PATH);
 
 	include_once TARGET_BASE_PATH . "/atk4/loader.php";
     include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/DocTestEnvironment.php";
-    include_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . "/lib-test/lib/TestCase.php";
 
 	class _doctest extends DocTestEnvironment {
 		function run() {
-            try {
-                $this->db->beginTransaction();
+			try {
+				$this->db->beginTransaction();
                 %s
 
                 %s
-                $this->db->rollback();
-            } catch (Exception $ex) {
-                $this->db->rollback();
-                throw($ex);
-            }
+				$this->db->rollback();
+			} catch (Exception $ex) {
+				$this->db->rollback();
+				throw($ex);
+			}
 		}
+		
+		function addSharedLocations($pathfinder,$base_directory) {
+			if (function_exists('addSharedCustomizedLocations')) {
+				addSharedCustomizedLocations($pathfinder, $base_directory);
+			}
+		}
+
 	}
 
 	$api=new _doctest();
@@ -46,21 +53,5 @@ try
 }
 catch (Exception $ex) {
 	print "Exception in doctest:\n";
-	$details_str = "";
-	if($ex instanceof BaseException)
-	{
-		$details_str = $ex->getText();
-		foreach ($ex->more_info as $key => $value)
-		{
-			$details_str .= ($key ."=>". $value .",");
-		}
-	}
-	$error = array(
-		"id"=> $ex->getCode(),
-		"msg"=> $ex->getMessage(),
-		"details"=> $details_str
-	);
-	var_dump($error);
-	$logger = new Logger();
-	print $logger->txtBacktrace($ex->getTrace());
+	echo $ex->getTraceAsString();
 }
