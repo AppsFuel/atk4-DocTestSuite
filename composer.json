@@ -3,14 +3,7 @@
     "license": "AGPL-3.0",
     "type": "library",
     "description": "Appsfuel doctest suite for atk",
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http://pear.php.net"
-        }
-    ],
     "require": {
-        "php": ">=5.3.3",
-        "pear-pear.php.net/Testing_DocTest": "*@beta"
+        "php": ">=5.3.3"
     }
 }
