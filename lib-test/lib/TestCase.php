@@ -42,7 +42,7 @@ class TestCase extends AbstractObject {
     }
 
     public function fails($msg) {
-        print $msg;
+	throw new Exception($msg);
     }
 
     function assertEquals($expected, $actual) {

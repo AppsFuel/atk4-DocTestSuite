@@ -1,5 +1,6 @@
 <?php
 
+
 require_once $_SERVER['DOCTEST_SUITE_FRAMEWORK'] . '/site-config.php';
 
 try
@@ -53,5 +54,7 @@ try
 }
 catch (Exception $ex) {
 	print "Exception in doctest:\n";
+	echo $ex->getMessage() . "\n";
 	echo $ex->getTraceAsString();
+	var_dump($ex->more_info);
 }
