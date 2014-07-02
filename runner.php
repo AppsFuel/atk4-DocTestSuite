@@ -159,7 +159,7 @@ try {
 
     if ($options['phpWrapper']) {
         $preparams .= ' --php-wrapper=' . $options['phpWrapper'];	
-    
+    }
 
 
     if ($options['coverage']) {

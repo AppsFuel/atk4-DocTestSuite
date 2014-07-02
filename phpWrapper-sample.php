@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /******************************************************
- * The purpose of --php-werapper option is to give
+ * The purpose of --php-wrapper option is to give
  * the opportunity to fully customize the php environment
  * where the tests are run.
  *
