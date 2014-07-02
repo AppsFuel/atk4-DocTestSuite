@@ -15,7 +15,7 @@ include_once 'Console/CommandLine.php';
 
 $parser = new Console_CommandLine(array(
     'description' => 'DocTestRunner',
-    'version'     => '0.0.1'
+    'version'     => '0.0.5'
 ));
 $parser->addOption('coverage', array(
     'long_name'   => '--coverage',
@@ -26,6 +26,11 @@ $parser->addOption('singleTest', array(
     'short_name' => '-t',
     'long_name'   => '--single-test',
     'description' => 'Run single test',
+    'action'      => 'StoreString'
+));
+$parser->addOption('phpWrapper', array(
+    'long_name'   => '--php-wrapper',
+    'description' => 'Define wrapper to php command',
     'action'      => 'StoreString'
 ));
 $parser->addArgument('path', array('multiple'=>true));
@@ -145,13 +150,22 @@ try {
     }
 
     $preparams = '';
+
     if ($options['singleTest']) {
         $preparams = ' -t \'' . $options['singleTest'] . '\' ';
     }
-    $preparams .= ' --template-code=' . $wrapperPath . ' --php-wrapper=/usr/bin/php' ;
+
+    $preparams .= ' --template-code=' . $wrapperPath;
+
+    if ($options['phpWrapper']) {
+        $preparams .= ' --php-wrapper=' . $options['phpWrapper'];	
+    
+
+
     if ($options['coverage']) {
         putenv('DOCTEST_COVERAGE=on');
     }
+
     $postparams = '';
     $command = sprintf_array(
         $commandPattern,
